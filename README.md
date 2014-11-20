@@ -1,4 +1,4 @@
-# Grunt Simple Version [![Dependency Status](https://david-dm.org/CloudKidStudio/grunt-simple-version.svg)](https://david-dm.org/CloudKidStudio/grunt-simple-version) [![Build Status](https://travis-ci.org/CloudKidStudio/grunt-simple-version.svg)](https://travis-ci.org/CloudKidStudio/grunt-simple-version)
+# Grunt Simple Version [![Dependency Status](https://david-dm.org/SpringRoll/grunt-simple-version.svg)](https://david-dm.org/SpringRoll/grunt-simple-version) [![Build Status](https://travis-ci.org/SpringRoll/grunt-simple-version.svg)](https://travis-ci.org/SpringRoll/grunt-simple-version)
 
 Easily update the version across your project. By default this updates the version field in **package.json**. Uses [Semantic Versioning](http://semver.org) format. 
 
