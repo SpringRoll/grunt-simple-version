@@ -2,21 +2,34 @@ module.exports = function(grunt)
 {
 	grunt.registerTask('version', 'Change the current project version', function(n){
 
-		var _ = require('lodash');
-		var path = require('path');
-		var fs = require('fs');
-		var semver = require('semver');
+		var _ = require('lodash'),
+			path = require('path'),
+			fs = require('fs'),
+			semver = require('semver'),
+			files = this.options(),
+			packageFile = 'package.json',
+			packageData = {},
+			current = '0.0.1';
 
-		var options = this.options(),
-			files = options.files;
-
-		if (!_.isPlainObject(files))
+		if (fs.existsSync(packageFile))
 		{
-			grunt.fail.fatal('Version files option must be an array');
+			packageData = grunt.file.readJSON(packageFile);
+			if (!packageData.version)
+			{
+				grunt.fail.warn('package.json must contain a "version" key');
+				packageData.version = current; // set default
+			}
+			current = packageData.version;
+		}
+		else
+		{
+			packageData.version = current;
+			writeJSON(packageFile, packageData);
 		}
 
 		if (!n)
 		{
+			grunt.log.ok("Current version: " + current);
 			grunt.fail.fatal("Attempting to change the version number, needs " + 
 				"to be the semantic versioning number (e.g. 1.0.0) or either " +
 				"major, minor or patch.");
@@ -28,11 +41,13 @@ module.exports = function(grunt)
 		// The version to set to
 		var version;
 
-		// Get the current version reliable place to get it
-		var current = fs.readFileSync('.version') || "0.0.0";
-
 		// For semver format, replace the version
-		if (semver.valid(n))
+		if (n === "current")
+		{
+			grunt.log.ok('Current version: ' + current);
+			return;
+		}
+		else if (semver.valid(n))
 		{
 			if (n == current)
 			{
@@ -57,6 +72,9 @@ module.exports = function(grunt)
 
 		grunt.log.ok("Version updated to " + version);
 
+		packageData.version = version;
+		writeJSON(packageFile, packageData);
+
 		var isJSON = /\.json$/i;
 
 		_.each(files, function(selection, file){
@@ -65,7 +83,7 @@ module.exports = function(grunt)
 
 			if (!fs.existsSync(filePath))
 			{
-				grunt.file.warn("The file to version '" + file + "' doesn't exist");
+				grunt.fail.warn("The file to version '" + file + "' doesn't exist");
 				return;
 			}
 
@@ -80,7 +98,7 @@ module.exports = function(grunt)
 				var fileData = grunt.file.readJSON(filePath);
 				fileData[selection] = version;
 				writeJSON(filePath, fileData);
-				grunt.log.writeln('Updated version in ' + file);
+				grunt.log.ok('Updated version in ' + file);
 			}
 			// Substitution plugin
 			else if (_.isFunction(selection))
@@ -98,7 +116,7 @@ module.exports = function(grunt)
 					data = selection(data, version);
 					grunt.file.write(filePath, data);
 				}
-				grunt.log.writeln('Updated version in ' + file);
+				grunt.log.ok('Updated version in ' + file);
 			}
 		});
 	});

@@ -1,6 +1,6 @@
 # Grunt Simple Version [![Dependency Status](https://david-dm.org/CloudKidStudio/grunt-simple-version.svg)](https://david-dm.org/CloudKidStudio/grunt-simple-version) [![Build Status](https://travis-ci.org/CloudKidStudio/grunt-simple-version.svg)](https://travis-ci.org/CloudKidStudio/grunt-simple-version)
 
-Update the project version across your projects. Uses [Semantic Versioning](http://semver.org) format. 
+Easily update the version across your project. By default this updates the version field in **package.json**. Uses [Semantic Versioning](http://semver.org) format. 
 
 ## Requirements
 
@@ -9,7 +9,7 @@ Update the project version across your projects. Uses [Semantic Versioning](http
 
 ## Setup
 
-Sample **Gruntfile.js** below. The version tasks needs a map of file names as an option. The value is the name of the JSON field to change. For instance, both bower and package have fields called version, this will update in both places
+Sample **Gruntfile.js** below. The version can take an optional map of file names as the options for files to update (other than **package.json**). For updating JSON files, the value is the name of the field to change. For instance, in this example **bower.json** has a field called `version`.
 
 ```js
 module.exports = function(grunt)
@@ -19,10 +19,7 @@ module.exports = function(grunt)
 	grunt.initConfig({
 		version: {
 			options : {
-				files : {
-					'bower.json' : 'version',
-					'package.json' : 'version'
-				}
+				'bower.json' : 'version'
 			}
 		}
 	});
@@ -35,19 +32,16 @@ Files to be versioned can take a string as the name of the JSON property or a fu
 grunt.initConfig({
 	version : {
 		options : {
-			files : {
-				'bower.json' : 'version',
-				'package.json' : 'version',
-				'deploy/index.html' : function(contents, version){
-					return contents.replace(
-							/src\=(\"|\')([^\?\n\r\"\']+)(\?v\=[a-z0-9\.]*)?(\"|\')/ig, 
-							'src="$2?v='+version+'"'
-						)
-						.replace(
-							/href\=(\"|\')([^\?\n\r\"\']+\.css)(\?v\=[a-z0-9\.]*)?(\"|\')/ig, 
-							'href="$2?v='+version+'"'
-						);
-				}
+			'bower.json' : 'version',
+			'deploy/index.html' : function(contents, version){
+				return contents.replace(
+						/src\=(\"|\')([^\?\n\r\"\']+)(\?v\=[a-z0-9\.]*)?(\"|\')/ig, 
+						'src="$2?v='+version+'"'
+					)
+					.replace(
+						/href\=(\"|\')([^\?\n\r\"\']+\.css)(\?v\=[a-z0-9\.]*)?(\"|\')/ig, 
+						'href="$2?v='+version+'"'
+					);
 			}
 		}
 	}
@@ -59,6 +53,9 @@ grunt.initConfig({
 Ways to set the version across the project:
 
 ```bash
+# Return the current version
+grunt version:current
+
 # Set a specific version
 grunt version:1.0.0-rc
 

@@ -2,7 +2,7 @@
 	"name": "grunt-simple-version",
 	"version": "0.1.0",
 	"description": "Update the project version across multiple files",
-	"main": "./grunt-simple-version.js",
+	"main": "./tasks/version.js",
 	"author": {
 		"name": "Matt Karl",
 		"email": "matt@cloudkid.com"

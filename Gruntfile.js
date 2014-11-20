@@ -8,6 +8,9 @@ module.exports = function(grunt)
 {
 	'use strict';
 
+	// Load the grunt task
+	require('./tasks/version.js')(grunt);
+
 	grunt.initConfig({
 	    jshint: {
 			all: [
@@ -17,6 +20,7 @@ module.exports = function(grunt)
 			]
 	    }
 	});
+
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.registerTask('test', ['jshint']);
 };
