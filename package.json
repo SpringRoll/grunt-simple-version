@@ -10,7 +10,7 @@
 	"license": "MIT",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/CloudKidStudio/grunt-simple-version"
+		"url": "https://github.com/SpringRoll/grunt-simple-version"
 	},
 	"dependencies": {
 		"semver": "~4.1.0",
@@ -33,7 +33,7 @@
 	},
 	"readmeFilename": "README.md",
 	"bugs": {
-		"url": "https://github.com/CloudKidStudio/grunt-simple-version/issues"
+		"url": "https://github.com/SpringRoll/grunt-simple-version/issues"
 	},
-	"homepage": "https://github.com/CloudKidStudio/grunt-simple-version"
+	"homepage": "https://github.com/SpringRoll/grunt-simple-version"
 }
