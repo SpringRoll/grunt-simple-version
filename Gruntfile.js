@@ -12,15 +12,15 @@ module.exports = function(grunt)
 	require('./tasks/version.js')(grunt);
 
 	grunt.initConfig({
-	    jshint: {
+		jshint: {
 			all: [
 				'Gruntfile.js',
 				'tasks/*.js',
 				'libs/*.js'
 			]
-	    }
+		}
 	});
-
+	
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.registerTask('test', ['jshint']);
 };

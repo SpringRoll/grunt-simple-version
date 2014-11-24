@@ -7,7 +7,7 @@ Easily update the version across your project. By default this updates the versi
 * Install [Node JS](http://nodejs.org/)
 * Install [Grunt](http://gruntjs.com/getting-started) `npm install -g grunt-cli`
 
-## Setup
+## Tasks Setup
 
 Sample **Gruntfile.js** below. The version can take an optional map of file names as the options for files to update (other than **package.json**). For updating JSON files, the value is the name of the field to change. For instance, in this example **bower.json** has a field called `version`.
 
@@ -26,23 +26,70 @@ module.exports = function(grunt)
 };
 ```
 
-Files to be versioned can take a string as the name of the JSON property or a function which takes the file contents and version as arguments. This example will add the version number to any href or src request inside an HTML file. 
+## Tasks Setup Examples
+
+### Nested-Field Update (JSON-only)
+
+The target field property on a JSON file can also be nested using a dot-syntax style address. The example below would update a `version` field on a `meta` object.
 
 ```js
 grunt.initConfig({
 	version : {
 		options : {
-			'bower.json' : 'version',
-			'deploy/index.html' : function(contents, version){
-				return contents.replace(
-						/src\=(\"|\')([^\?\n\r\"\']+)(\?v\=[a-z0-9\.]*)?(\"|\')/ig, 
-						'src="$2?v='+version+'"'
-					)
-					.replace(
-						/href\=(\"|\')([^\?\n\r\"\']+\.css)(\?v\=[a-z0-9\.]*)?(\"|\')/ig, 
-						'href="$2?v='+version+'"'
-					);
+			'info.json' : 'meta.version'
+		}
+	}
+});
+```
+
+### Cache-Busting Update (HTML-only)
+
+Providing a value of `cache-bust` to an HTML file will append any src or CSS href properties with the version number. For instance, `<script src="main.js"></script>` would become `<script src="main.js?v=1.0.0"></script>`. This will help invalid the browser cache for linked assets.
+
+```js
+grunt.initConfig({
+	version : {
+		options : {
+			'deploy/index.html' : 'cache-bust'
+		}
+	}
+});
+```
+
+### Replacement Update
+
+A replacement function can be used to replace the version in the contents of a file. The function takes two arguments, the contents of the file and the version number to update to. The function must return an update string with the contents of the file.
+
+```js
+grunt.initConfig({
+	version : {
+		options : {
+			'deploy/index.html' : function(content, version) {
+				return content.replace(
+					/\<\!\-\- Version .* \-\-\>/,
+					'<!-- Version ' + version + ' -->'
+				);
 			}
+		}
+	}
+});
+```
+
+### Multiple Updates
+
+The target field also supports multiple options (fields, nested-fields, functions, `cache-bust`) for a single file. The example below would update two fields in the JSON file with the version and do a dynamic function replacement. 
+
+```js
+grunt.initConfig({
+	version : {
+		options : {
+			'project.json' : [
+				'version', 
+				'meta.version', 
+				function(content, version){
+					content.description = "Current build version " + version;			
+				}
+			]
 		}
 	}
 });
