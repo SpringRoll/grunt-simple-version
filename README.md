@@ -1,6 +1,6 @@
 # Grunt Simple Version 
 
-[![Dependency Status](https://david-dm.org/SpringRoll/grunt-simple-version.svg)](https://david-dm.org/SpringRoll/grunt-simple-version) [![Build Status](https://travis-ci.org/SpringRoll/grunt-simple-version.svg)](https://travis-ci.org/SpringRoll/grunt-simple-version) [![npm version](https://badge.fury.io/js/grunt-simple-version.svg)](http://badge.fury.io/js/grunt-simple-version)
+[![Dependency Status](https://david-dm.org/SpringRoll/grunt-simple-version.svg?style=flat)](https://david-dm.org/SpringRoll/grunt-simple-version) [![Build Status](https://travis-ci.org/SpringRoll/grunt-simple-version.svg)](https://travis-ci.org/SpringRoll/grunt-simple-version) [![npm version](https://badge.fury.io/js/grunt-simple-version.svg)](http://badge.fury.io/js/grunt-simple-version)
 
 Easily update the version across your project. By default this updates the version field in **package.json**. Uses [Semantic Versioning](http://semver.org) format. 
 
