@@ -1,6 +1,6 @@
 {
 	"name": "grunt-simple-version",
-	"version": "0.2.2",
+	"version": "0.2.3",
 	"description": "Update the project version across multiple files",
 	"main": "./tasks/version.js",
 	"author": {
@@ -13,8 +13,8 @@
 		"url": "https://github.com/SpringRoll/grunt-simple-version"
 	},
 	"dependencies": {
-		"semver": "~4.2.0",
-		"lodash": "~2.4.1"
+		"semver": "~4.3.3",
+		"lodash": "~3.6.0"
 	},
 	"devDependencies": {
 		"grunt-contrib-jshint": "~0.10.0"
