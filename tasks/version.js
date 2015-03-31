@@ -181,11 +181,11 @@ module.exports = function(grunt)
 	function cacheBust(contents, version)
 	{
 		return contents.replace(
-				/src\=(\"|\')([^\?\n\r\"\']+)(\?v\=[a-z0-9\.]*)?(\"|\')/ig, 
+				/src\=(\"|\')([^\?\n\r\"\']+)(\?v\=[a-z0-9\.\-]*)?(\"|\')/ig, 
 				'src="$2?v='+version+'"'
 			)
 			.replace(
-				/href\=(\"|\')([^\?\n\r\"\']+\.css)(\?v\=[a-z0-9\.]*)?(\"|\')/ig, 
+				/href\=(\"|\')([^\?\n\r\"\']+\.css)(\?v\=[a-z0-9\.\-]*)?(\"|\')/ig, 
 				'href="$2?v='+version+'"'
 			);
 	}
