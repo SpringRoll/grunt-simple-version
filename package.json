@@ -1,6 +1,6 @@
 {
 	"name": "grunt-simple-version",
-	"version": "0.2.3",
+	"version": "0.2.4",
 	"description": "Update the project version across multiple files",
 	"main": "./tasks/version.js",
 	"author": {
